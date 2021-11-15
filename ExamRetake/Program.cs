@@ -6,7 +6,11 @@ namespace ExamRetake
 	{
 		static void Main(string[] args)
 		{
-			Console.WriteLine("Hello World!");
+			//create bankAccount
+
+			//if (user input is date) currentBalance
+
+			//else finalBalance
 		}
 	}
 }
