@@ -56,8 +56,9 @@ namespace ExamRetake
 
 			int transactionCount = bankAccountData.Length - 1;
 			string[] transactionsData = new string[transactionCount];
-
 			Array.Copy(bankAccountData, 1, transactionsData, 0, transactionCount);
+
+			transactionsData.ToList().ForEach(s => transactions.Add(new Transaction(s)));
 		}
 
 		public double CalculateBalance(DateTime date)
