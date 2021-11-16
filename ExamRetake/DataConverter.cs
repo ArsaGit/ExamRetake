@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace ExamRetake
 {
-	public class Converter
+	public class DataConverter
 	{
-
+		public static Transaction ConvertToTransaction(string transaction)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
