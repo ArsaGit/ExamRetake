@@ -9,13 +9,13 @@ namespace ExamRetake
 	public class Transaction
 	{
 		public DateTime Date { get; init; }
-		public double Sum { get; init; }
+		public double Amount { get; init; }
 		public string Type { get; init; }
 
-		public Transaction(DateTime date, double sum, string type)
+		public Transaction(DateTime date, double amount, string type)
 		{
 			Date = date;
-			Sum = sum;
+			Amount = amount;
 			Type = type;
 		}
 
@@ -25,8 +25,8 @@ namespace ExamRetake
 			trData.ToList().ForEach(s => s = s.Trim());
 
 			Date = Convert.ToDateTime(trData[0]);
-			Sum = Convert.ToDouble(trData[1]);
-			Type = trData[2];
+			if(trData.Length == 3)Amount = Convert.ToDouble(trData[1]);
+			Type = trData[^1];
 		}
 	}
 
@@ -44,13 +44,18 @@ namespace ExamRetake
 			}
 		}
 
-		public BankAccount(double balance, List<Transaction> transactions)
+		public BankAccount()
+		{
+			transactions = new();
+		}
+
+		public BankAccount(double balance, List<Transaction> transactions) : this()
 		{
 			Balance = balance;
 			this.transactions = transactions;
 		}
 
-		public BankAccount(string[] bankAccountData)
+		public BankAccount(string[] bankAccountData) : this()
 		{
 			Balance = Convert.ToDouble(bankAccountData[0]);
 
@@ -63,7 +68,23 @@ namespace ExamRetake
 
 		public double CalculateBalance(DateTime date)
 		{
-			throw new NotImplementedException();
+			for(int i = 0; i < transactions.Count; i++)
+			{
+				if(transactions[i].Type == "in")
+				{
+					Balance += transactions[i].Amount;
+				}
+				else if(transactions[i].Type == "out")
+				{
+					Balance -= transactions[i].Amount;
+				}
+				else if(transactions[i].Type == "revert" && i != 0)
+				{
+
+				}
+			}
+
+			return Balance;
 		}
 	}
 }
